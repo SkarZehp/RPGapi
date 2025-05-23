@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>RPG Rolagem Automática</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Sistema de Rolagem RPG</h1>
+
+  <div class="ficha-header">
+    <input type="text" id="nome" placeholder="Digite o nome...">
+    <input type="text" id="imagem-url" placeholder="URL da imagem...">
+    <img id="imagem-preview" src="" alt="Imagem do personagem">
+  </div>
+
+  <div class="container">
+    <div class="status">
+      <h3>Status</h3>
+      <label>Força:
+        <input type="number" id="forca" value="10">
+      </label>
+      <label>Destreza:
+        <input type="number" id="destreza" value="8">
+      </label>
+      <label>Vigor:
+        <input type="number" id="vigor" value="7">
+      </label>
+      <label>Intelecto:
+        <input type="number" id="intelecto" value="12">
+      </label>
+      <label>Aura:
+        <input type="number" id="aura" value="9">
+      </label>
+    </div>
+
+    <div class="config">
+      <div>
+        <h3>Modo de Rolagem</h3>
+        <button id="vantagem-btn">Vantagem</button>
+        <button id="normal-btn">Normal</button>
+        <button id="desvantagem-btn">Desvantagem</button>
+      </div>
+
+      <div>
+        <h3>Dificuldade</h3>
+        <select id="difficulty-select">
+          <option value="Fácil">Fácil</option>
+          <option value="Médio" selected>Médio</option>
+          <option value="Difícil">Difícil</option>
+          <option value="Extremo">Extremo</option>
+        </select>
+      </div>
+
+      <div id="result-area">
+        Aqui vai o resultado da rolagem
+      </div>
+    </div>
+  </div>
+
+  <div class="acoes">
+    <h3>Ações</h3>
+    <button class="acao-btn" data-acao="Ataque">Ataque</button>
+    <button class="acao-btn" data-acao="Esquiva">Esquiva</button>
+    <button class="acao-btn" data-acao="Contra-ataque">Contra-ataque</button>
+    <button class="acao-btn" data-acao="Magia Intelecto">Magia Intelecto</button>
+    <button class="acao-btn" data-acao="Magia Aura">Magia Aura</button>
+    <button class="acao-btn" data-acao="Atletismo">Atletismo</button>
+    <button class="acao-btn" data-acao="Mira">Mira</button>
+    <button class="acao-btn" data-acao="Defesa">Defesa</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
