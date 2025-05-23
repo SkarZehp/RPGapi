@@ -98,6 +98,9 @@ function rolarComModo() {
 function rolarAcao(acao) {
   const ficha = pegarFicha();
   const atributoNome = acaoAtributo[acao];
+  const nome = document.getElementById('nome').value;
+const imagemURL = document.getElementById('imagem-url').value;
+
   if (!atributoNome) return alert('Ação inválida');
 
   const atributoValor = ficha[atributoNome] || 0;
@@ -124,8 +127,7 @@ function rolarAcao(acao) {
       ✅ Resultado: ${acertou} — ${nivel}`
 
   document.getElementById('result-area').textContent = resultadoTexto;
-
-  enviarDiscord(resultadoTexto);
+  enviarDiscord(resultadoTexto, imagemURL);
 }
 
 // Define modo de rolagem e atualiza botão ativo
@@ -168,14 +170,28 @@ function carregarFicha() {
 // Discord webhook URL
 const WEBHOOK_URL = 'https://discord.com/api/webhooks/1375277583591280720/bUY8MULq_Ykkf0x9Da9pUmX4K03sLmHLVCRlCUrLC67N_rHDbLy1eFu_wi5jqFTHTzBv';
 
-// Envia mensagem pro Discord via webhook
-function enviarDiscord(mensagem) {
+function enviarDiscord(mensagem, imagemURL) {
+  const ficha = pegarFicha();
+  const payload = {
+    content: mensagem,
+    embeds: [
+      {
+        title: `Player: ${ficha.nome} ` ,
+        image: {
+          url: imagemURL
+        },
+        color: 3447003 // opcional: cor do embed
+      }
+    ]
+  };
+
   fetch(WEBHOOK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ content: mensagem }),
+    body: JSON.stringify(payload),
   }).catch(err => console.error('Erro ao enviar mensagem pro Discord:', err));
 }
+
 
 // Setup inicial
 document.addEventListener('DOMContentLoaded', () => {
