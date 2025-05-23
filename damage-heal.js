@@ -94,9 +94,9 @@ function openDamageMenu() {
           }
           const multiplier = {
             normal: 1,
-            bom: 1.25,
-            extremo: 1.5,
-            critico: 2
+            bom: 1.5,
+            extremo: 2,
+            critico: 3
           }[level];
 
           const result = rollDice(window.selectedDice) * multiplier;

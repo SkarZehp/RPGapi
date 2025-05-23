@@ -67,11 +67,11 @@ function calculaNivel(total, dificuldade) {
     else level = 'Erro Fatal';
 
   } else if (dificuldade === 'Extremo') {
-    if (total >= 55) level = 'Criticamente Extremo';
-    else if (total >= 47) level = 'Extremo';
+    if (total >= 60) level = 'Criticamente Extremo';
+    else if (total >= 50) level = 'Extremo';
     else if (total >= 40) level = 'Bom';
     else if (total >= 30) level = 'Normal';
-    else if (total >= 15) level = 'Ruim';
+    else if (total >= 20) level = 'Ruim';
     else level = 'Erro Fatal';
   }
 
