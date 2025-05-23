@@ -11,7 +11,6 @@ function openDamageMenu() {
   } else {
     damageWindow = window.open('', 'damageWindow', 'width=400,height=500');
     damageWindow.document.write(`
-// Dentro do damageWindow.document.write, substitui o style por:
 
 <style>
   body {
@@ -116,7 +115,6 @@ function openHealMenu() {
   } else {
     healWindow = window.open('', 'healWindow', 'width=400,height=400');
     healWindow.document.write(`
- // Dentro do damageWindow.document.write, substitui o style por:
 
 <style>
   body {
