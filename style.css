@@ -1,21 +1,22 @@
-/* Reset básico */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Georgia', serif;
 }
 
 body {
-  background-color: #111; /* preto de respeito */
-  color: #f5f5f5; /* texto claro */
+  background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+  color: #e0c58a;
   padding: 20px;
+  background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
 }
 
 h1 {
-  color: #ffcc00; /* amarelo forte */
+  color: #d4af37;
   text-align: center;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 5px #000;
 }
 
 .ficha-header {
@@ -30,12 +31,14 @@ h1 {
   padding: 8px;
   border: none;
   border-radius: 5px;
+  background-color: #1f1f1f;
+  color: #e0c58a;
 }
 
 #imagem-preview {
   max-width: 200px;
   max-height: 200px;
-  border: 2px solid #ff0000; /* borda vermelha */
+  border: 2px solid #d4af37;
   border-radius: 10px;
   margin-top: 10px;
   display: none;
@@ -45,21 +48,21 @@ h1 {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  flex-wrap: wrap; /* responsivo */
+  flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
 .status, .config {
   flex: 1;
   min-width: 250px;
-  background-color: #222; /* cinza bem escuro */
+  background-color: #1b1b1b;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 10px #ff0000;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
 }
 
 .status h3, .config h3, .acoes h3 {
-  color: #ffcc00;
+  color: #d4af37;
   margin-bottom: 10px;
 }
 
@@ -71,15 +74,15 @@ h1 {
 input, select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ffcc00;
-  background-color: #333;
-  color: #fff;
+  border: 1px solid #d4af37;
+  background-color: #2c2c2c;
+  color: #e0c58a;
   border-radius: 5px;
 }
 
 button {
-  background-color: #ff0000; /* botão vermelho */
-  color: #fff;
+  background-color: #3d2b1f;
+  color: #e0c58a;
   border: none;
   padding: 10px 15px;
   margin: 5px 5px 0 0;
@@ -89,17 +92,17 @@ button {
 }
 
 button:hover {
-  background-color: #cc0000; /* mais escuro no hover */
+  background-color: #5c3d29;
 }
 
 button.active {
-  background-color: #ffcc00;
-  color: #000;
+  background-color: #d4af37;
+  color: #1a1a1a;
 }
 
 #result-area {
-  background-color: #000;
-  border: 1px solid #ffcc00;
+  background-color: #0d0d0d;
+  border: 1px solid #d4af37;
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;
@@ -107,25 +110,25 @@ button.active {
 }
 
 .acoes {
-  background-color: #222;
+  background-color: #1b1b1b;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 10px #ffcc00;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
   text-align: center;
 }
 
 .acoes button {
-  background-color: #ffcc00;
-  color: #000;
+  background-color: #d4af37;
+  color: #1a1a1a;
 }
 
 .acoes button:hover {
-  background-color: #e6b800;
+  background-color: #bfa034;
 }
 
-/* Responsivo bruto */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
 }
+
