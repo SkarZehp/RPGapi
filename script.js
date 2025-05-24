@@ -113,18 +113,15 @@ const imagemURL = document.getElementById('imagem-url').value;
   const acertou = (nivel !== 'Erro Fatal' && nivel !== 'Ruim') ? 'Acertou!' : 'Errou!';
 
   const resultadoTexto = 
-  `---------------------------------------------------
+  `⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯・${ficha.nome || 'Sem nome'}・⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
   ` +
-    `🛡️ Player: ${ficha.nome || 'Sem nome'}\n` +
-    `🎲 Ação: ${acao}\n` +
-    `🎯 Modo: ${modoRolagem}\n` +
-    `📊 Dificuldade: ${dificuldade}\n` +
-    `🎲 Rolagens: ${rolls.join(', ')}\n` +
-    `💪 Atributo (${atributoNome}): ${atributoValor}\n` +
-    `💥 Total: ${total}\n` +
-  `---------------------------------------------------` +
-      `
-      ✅ Resultado: ${acertou} — ${nivel}`
+    `➸ ↝𝘈ç𝘢𝘰: ${acao}\n` +
+    `¦ ‡ 𝘔𝘰𝘥𝘰: ${modoRolagem}\n` +
+    `〆¨ 𝘋𝘪𝘧𝘪𝘤𝘶𝘭𝘥𝘢𝘥𝘦: ${dificuldade}\n` +
+    `♤ 𝘙𝘰𝘭𝘢𝘨𝘦𝘯𝘴: ${rolls.join(', ')}\n` +
+    `⍀ 𝘈𝘵𝘳𝘪𝘣𝘶𝘵𝘰:  (${atributoNome}): ${atributoValor}\n` +
+    `が 𝘛𝘰𝘵𝘢𝘭: ${total}\n` +
+  `⎯⎯⎯⎯⎯⎯⎯・${nivel}・⎯⎯⎯⎯⎯⎯⎯⎯⎯`
 
   document.getElementById('result-area').textContent = resultadoTexto;
   enviarDiscord(resultadoTexto, imagemURL);
