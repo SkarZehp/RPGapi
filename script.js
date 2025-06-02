@@ -28,26 +28,24 @@ function pegarFicha() {
 
 // Atualiza preview da imagem
 document.getElementById('imagem-url').addEventListener('input', function() {
-  const url = this.value;
   const img = document.getElementById('imagem-preview');
-  if (url) {
-    img.src = url;
+  if (this.value) {
+    img.src = this.value;
     img.style.display = 'block';
   } else {
     img.style.display = 'none';
   }
 });
 
-// Calcula nível conforme dificuldade e total
 function calculaNivel(total, dificuldade) {
   let level = '';
 
   if (dificuldade === 'Fácil') {
     if (total >= 45) level = 'Criticamente Extremo';
-    else if (total >= 35) level = 'Extremo';
-    else if (total >= 20) level = 'Bom';
-    else if (total >= 10) level = 'Normal';
-    else if (total >= 5) level = 'Ruim';
+    else if (total >= 38) level = 'Extremo';
+    else if (total >= 28) level = 'Bom';
+    else if (total >= 17) level = 'Normal';
+    else if (total >= 7) level = 'Ruim';        // Aqui caiu um pouco, pra ficar mais alcançável
     else level = 'Erro Fatal';
 
   } else if (dificuldade === 'Médio') {
@@ -55,32 +53,38 @@ function calculaNivel(total, dificuldade) {
     else if (total >= 40) level = 'Extremo';
     else if (total >= 30) level = 'Bom';
     else if (total >= 20) level = 'Normal';
-    else if (total >= 10) level = 'Ruim';
+    else if (total >= 8) level = 'Ruim';        // Mesma pegada
     else level = 'Erro Fatal';
 
   } else if (dificuldade === 'Difícil') {
     if (total >= 49) level = 'Criticamente Extremo';
-    else if (total >= 45) level = 'Extremo';
-    else if (total >= 35) level = 'Bom';
-    else if (total >= 25) level = 'Normal';
-    else if (total >= 15) level = 'Ruim';
+    else if (total >= 42) level = 'Extremo';
+    else if (total >= 33) level = 'Bom';
+    else if (total >= 23) level = 'Normal';
+    else if (total >= 10) level = 'Ruim';       // Um pouco mais alto que o fácil, mas alcançável
     else level = 'Erro Fatal';
 
   } else if (dificuldade === 'Extremo') {
-    if (total >= 60) level = 'Criticamente Extremo';
-    else if (total >= 50) level = 'Extremo';
-    else if (total >= 40) level = 'Bom';
-    else if (total >= 30) level = 'Normal';
-    else if (total >= 20) level = 'Ruim';
+    if (total >= 52) level = 'Criticamente Extremo';
+    else if (total >= 45) level = 'Extremo';
+    else if (total >= 36) level = 'Bom';
+    else if (total >= 26) level = 'Normal';
+    else if (total >= 13) level = 'Ruim';       // Ruim, mas não impossível
     else level = 'Erro Fatal';
   }
 
   return level;
 }
 
-// Rola dado 1-50
+// Rolagem punitiva com curva de sino
 function rolarDado() {
-  return Math.floor(Math.random() * 50) + 1;
+  let soma = 0;
+  for (let i = 0; i < 7; i++) {
+    soma += Math.random();
+  }
+  const normalizado = soma / 7;
+  const resultado = Math.round(normalizado * 49) + 1;
+  return resultado;
 }
 
 // Rola com modo normal, vantagem ou desvantagem
@@ -90,7 +94,6 @@ function rolarComModo() {
 
   const segunda = rolarDado();
   const rollFinal = (modoRolagem === 'vantagem') ? Math.max(primeira, segunda) : Math.min(primeira, segunda);
-
   return { roll: rollFinal, rolls: [primeira, segunda] };
 }
 
@@ -98,8 +101,8 @@ function rolarComModo() {
 function rolarAcao(acao) {
   const ficha = pegarFicha();
   const atributoNome = acaoAtributo[acao];
-  const nome = document.getElementById('nome').value;
-const imagemURL = document.getElementById('imagem-url').value;
+  const nome = ficha.nome;
+  const imagemURL = ficha.imagem;
 
   if (!atributoNome) return alert('Ação inválida');
 
@@ -109,19 +112,17 @@ const imagemURL = document.getElementById('imagem-url').value;
   const { roll, rolls } = rolarComModo();
   const total = roll + atributoValor;
   const nivel = calculaNivel(total, dificuldade);
-
   const acertou = (nivel !== 'Erro Fatal' && nivel !== 'Ruim') ? 'Acertou!' : 'Errou!';
 
   const resultadoTexto = 
-  `⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯・${ficha.nome || 'Sem nome'}・⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-  ` +
-    `➸ ↝𝘈ç𝘢𝘰: ${acao}\n` +
-    `¦ ‡ 𝘔𝘰𝘥𝘰: ${modoRolagem}\n` +
-    `〆¨ 𝘋𝘪𝘧𝘪𝘤𝘶𝘭𝘥𝘢𝘥𝘦: ${dificuldade}\n` +
-    `♤ 𝘙𝘰𝘭𝘢𝘨𝘦𝘯𝘴: ${rolls.join(', ')}\n` +
-    `⍀ 𝘈𝘵𝘳𝘪𝘣𝘶𝘵𝘰:  (${atributoNome}): ${atributoValor}\n` +
-    `が 𝘛𝘰𝘵𝘢𝘭: ${total}\n` +
-  `⎯⎯⎯⎯⎯⎯⎯・${nivel}・⎯⎯⎯⎯⎯⎯⎯⎯⎯`
+`⎯⎯⎯⎯⎯⎯⎯⎯・${nome || 'Sem nome'}・⎯⎯⎯⎯⎯⎯⎯⎯
+➸ Ação: ${acao}
+¦ Modo: ${modoRolagem}
+〆 Dificuldade: ${dificuldade}
+♤ Rolagens: ${rolls.join(', ')}
+⍀ Atributo (${atributoNome}): ${atributoValor}
+が Total: ${total}
+⎯⎯⎯⎯⎯・${nivel}・⎯⎯⎯⎯⎯`;
 
   document.getElementById('result-area').textContent = resultadoTexto;
   enviarDiscord(resultadoTexto, imagemURL);
@@ -173,11 +174,9 @@ function enviarDiscord(mensagem, imagemURL) {
     content: mensagem,
     embeds: [
       {
-        title: `Player: ${ficha.nome} ` ,
-        image: {
-          url: imagemURL
-        },
-        color: 3447003 // opcional: cor do embed
+        title: `Player: ${ficha.nome}`,
+        image: { url: imagemURL },
+        color: 3447003
       }
     ]
   };
@@ -189,37 +188,27 @@ function enviarDiscord(mensagem, imagemURL) {
   }).catch(err => console.error('Erro ao enviar mensagem pro Discord:', err));
 }
 
-
 // Setup inicial
 document.addEventListener('DOMContentLoaded', () => {
   carregarFicha();
 
-  
-  // Eventos para salvar ficha ao alterar qualquer campo
   document.querySelectorAll('#nome, #imagem-url, #forca, #destreza, #vigor, #intelecto, #aura').forEach(input => {
     input.addEventListener('input', salvarFicha);
   });
 
-  // Botões modo de rolagem
   document.getElementById('vantagem-btn').addEventListener('click', () => setModo('vantagem'));
   document.getElementById('normal-btn').addEventListener('click', () => setModo('normal'));
   document.getElementById('desvantagem-btn').addEventListener('click', () => setModo('desvantagem'));
 
-  // Botões ações
   document.querySelectorAll('.acao-btn').forEach(botao => {
     botao.addEventListener('click', () => rolarAcao(botao.textContent));
   });
 
-  // Define modo normal ativo no começo
   setModo('normal');
 
-  // *** COLE AQUI ESSE CÓDIGO PRA DIFICULDADE ***
-  const difficultyButtons = document.querySelectorAll('.difficulty-btn');
-  difficultyButtons.forEach(button => {
+  document.querySelectorAll('.difficulty-btn').forEach(button => {
     button.addEventListener('click', () => {
-      // Remove active dos outros
-      difficultyButtons.forEach(btn => btn.classList.remove('active'));
-      // Marca o clicado como ativo
+      document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
     });
   });
