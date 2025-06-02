@@ -104,7 +104,7 @@ const imagemURL = document.getElementById('imagem-url').value;
   if (!atributoNome) return alert('Ação inválida');
 
   const atributoValor = ficha[atributoNome] || 0;
-  const dificuldade = document.getElementById('difficulty-select').value;
+  const dificuldade = document.querySelector('.difficulty-btn.active').dataset.difficulty;
 
   const { roll, rolls } = rolarComModo();
   const total = roll + atributoValor;
@@ -194,6 +194,7 @@ function enviarDiscord(mensagem, imagemURL) {
 document.addEventListener('DOMContentLoaded', () => {
   carregarFicha();
 
+  
   // Eventos para salvar ficha ao alterar qualquer campo
   document.querySelectorAll('#nome, #imagem-url, #forca, #destreza, #vigor, #intelecto, #aura').forEach(input => {
     input.addEventListener('input', salvarFicha);
@@ -211,4 +212,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Define modo normal ativo no começo
   setModo('normal');
+
+  // *** COLE AQUI ESSE CÓDIGO PRA DIFICULDADE ***
+  const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+  difficultyButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active dos outros
+      difficultyButtons.forEach(btn => btn.classList.remove('active'));
+      // Marca o clicado como ativo
+      button.classList.add('active');
+    });
+  });
 });

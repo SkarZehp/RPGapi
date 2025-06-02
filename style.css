@@ -2,46 +2,63 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Georgia', serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
-  color: #e0c58a;
+  background-color: #2f2f2f; /* cinza escuro, dominando */
+  color: #f5f5f5; /* branco suave nas letras */
   padding: 20px;
-  background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
 }
 
 h1 {
-  color: #d4af37;
+  color: #f5f5f5; /* branco */
   text-align: center;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 5px #000;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  border-bottom: 2px solid #e63946; /* detalhe vermelho na linha */
+  padding-bottom: 8px;
 }
 
 .ficha-header {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #3a3a3a; /* cinza médio pra dar contraste */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  max-width: 320px;
+  border-left: 4px solid #e63946; /* detalhe vermelho marcante */
 }
 
 .ficha-header input {
-  margin: 5px 0;
   padding: 8px;
-  border: none;
+  border: 1px solid #555555;
   border-radius: 5px;
-  background-color: #1f1f1f;
-  color: #e0c58a;
+  background-color: #454545;
+  color: #f5f5f5;
+  width: 100%;
+  font-weight: 500;
+  transition: border-color 0.3s ease;
+}
+
+.ficha-header input:focus {
+  border-color: #e63946;
+  outline: none;
+  background-color: #3a3a3a;
 }
 
 #imagem-preview {
-  max-width: 200px;
-  max-height: 200px;
-  border: 2px solid #d4af37;
-  border-radius: 10px;
-  margin-top: 10px;
-  display: none;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 280px;
+  max-height: 280px;
+  border-radius: 8px;
+  border: 2px solid #e63946;
 }
 
 .container {
@@ -55,75 +72,103 @@ h1 {
 .status, .config {
   flex: 1;
   min-width: 250px;
-  background-color: #1b1b1b;
+  background-color: #3a3a3a;
   padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  border-left: 4px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.status:hover, .config:hover {
+  border-left-color: #e63946;
 }
 
 .status h3, .config h3, .acoes h3 {
-  color: #d4af37;
+  color: #f5f5f5;
   margin-bottom: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .status label, .config label, .config select {
   display: block;
   margin-bottom: 10px;
+  color: #d0d0d0;
+  font-weight: 500;
 }
 
 input, select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #d4af37;
-  background-color: #2c2c2c;
-  color: #e0c58a;
+  border: 1px solid #555555;
+  background-color: #454545;
+  color: #f5f5f5;
   border-radius: 5px;
+  font-weight: 500;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: #e63946;
+  outline: none;
+  background-color: #3a3a3a;
 }
 
 button {
-  background-color: #3d2b1f;
-  color: #e0c58a;
+  background-color: #e63946;
+  color: #f5f5f5;
   border: none;
   padding: 10px 15px;
   margin: 5px 5px 0 0;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #5c3d29;
+  background-color: #c1272d;
 }
 
 button.active {
-  background-color: #d4af37;
-  color: #1a1a1a;
+  background-color: #9b1f23;
 }
 
 #result-area {
-  background-color: #0d0d0d;
-  border: 1px solid #d4af37;
+  background-color: #3a3a3a;
+  border: 1px solid #555555;
   padding: 10px;
   margin-top: 10px;
-  border-radius: 5px;
+  border-radius: 6px;
   white-space: pre-line;
+  color: #f5f5f5;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 .acoes {
-  background-color: #1b1b1b;
+  background-color: #3a3a3a;
   padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  border-radius: 8px;
   text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  border-left: 4px solid #e63946;
 }
 
 .acoes button {
-  background-color: #d4af37;
-  color: #1a1a1a;
+  background-color: #e63946;
+  color: #f5f5f5;
+  border-radius: 6px;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .acoes button:hover {
-  background-color: #bfa034;
+  background-color: #c1272d;
 }
 
 @media (max-width: 768px) {
@@ -132,3 +177,95 @@ button.active {
   }
 }
 
+.status-minimal {
+  background-color: #3a3a3a;
+  border: 1px solid #555555;
+  border-radius: 8px;
+  padding: 12px 15px;
+  width: 180px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-minimal h3 {
+  color: #e63946;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.status-list label {
+  display: flex;
+  justify-content: space-between;
+  color: #d0d0d0;
+  font-weight: 600;
+}
+
+.status-list input {
+  width: 50px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #555555;
+  background-color: #454545;
+  color: #f5f5f5;
+  font-weight: 600;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.status-list input:focus {
+  border-color: #e63946;
+  outline: none;
+  background-color: #3a3a3a;
+}
+
+.difficulty-btn {
+  background-color: #454545;
+  color: #d0d0d0;
+  border: 1px solid #555555;
+  padding: 8px 14px;
+  margin-right: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.difficulty-btn:hover {
+  background-color: #e63946;
+  color: #f5f5f5;
+  border-color: #e63946;
+}
+
+.difficulty-btn.active {
+  background-color: #e63946;
+  color: #f5f5f5;
+  border-color: #9b1f23;
+}
+
+.imagem-centralizada {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+#imagem-preview {
+  display: block;
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 8px;
+  border: 2px solid #e63946;
+}
