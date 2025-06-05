@@ -81,17 +81,19 @@ function calculaNivel(total, dificuldade) {
 
   return level;
 }
-
-// Rolagem punitiva com curva de sino
+//rolagem
 function rolarDado() {
-  let soma = 0;
-  for (let i = 0; i < 7; i++) {
-    soma += Math.random();
-  }
-  const normalizado = soma / 7;
-  const resultado = Math.round(normalizado * 49) + 1;
+  let resultado = Math.floor(Math.random() * 50) + 1;  // Aleatório 1-50
+
+  const penalidade = Math.floor(Math.random() * 5);   // Penalidade de 0 a 4
+  resultado -= penalidade;                            // Diminui
+
+  if (resultado < 1) resultado = 1;                   // Nunca menor que 1
+
   return resultado;
 }
+
+
 
 // Rola com modo normal, vantagem ou desvantagem
 function rolarComModo() {
