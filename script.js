@@ -11,6 +11,12 @@ const acaoAtributo = {
   'Atletismo': 'vigor',
   'Mira': 'destreza',
   'Defesa': 'vigor',
+  'Resistencia': 'vigor',
+  'Teste Força': 'forca',
+  'Teste Destreza': 'destreza',
+  'Teste Vigor': 'vigor',
+  'Teste Intelecto': 'intelecto',
+  'Teste Aura': 'aura',
 };
 
 // Pega os dados da ficha
