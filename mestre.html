@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>RPG Rolagem Automática</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Botão Mestre fixo no canto direito */
+    #master-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #222;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 9999;
+      font-weight: bold;
+    }
+    #master-panel {
+      display: none;
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: #111;
+      color: #eee;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 0 10px #000;
+      z-index: 9998;
+      overflow-y: auto;
+      font-family: monospace;
+    }
+    #master-panel textarea {
+      width: 100%;
+      height: 300px;
+      background: #222;
+      color: #eee;
+      border: none;
+      resize: none;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    #master-panel button {
+      margin-top: 10px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      background: #444;
+      color: #eee;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Sistema de Rolagem RPG</h1>
+
+<div id="action-buttons">
+  <button onclick="openDamageMenu()">Dano</button>
+  <button onclick="openHealMenu()">Cura</button>
+</div>
+
+<div id="damage-menu" style="display: none;">
+  <h3>Escolha o tipo de Dano:</h3>
+  <button onclick="selectDamage('Soco', '1d10')">Soco</button>
+  <button onclick="selectDamage('Facada', '1d12')">Facada</button>
+  <button onclick="selectDamage('Katana', '3d6')">Katana</button>
+  <button onclick="selectDamage('Pistola', '1d12')">Pistola</button>
+  <button onclick="selectDamage('Escopeta', '2d12')">Escopeta</button>
+  <button onclick="selectDamage('Metralhadora', '3d8')">Metralhadora</button>
+  <button onclick="selectDamage('Sniper', '4d8')">Sniper</button>
+  <button onclick="selectDamage('Granada', '4d8')">Granada</button>
+  <button onclick="selectDamage('Explosão', '6d10')">Explosão</button>
+</div>
+
+<div id="heal-menu" style="display: none;">
+  <h3>Escolha o tipo de Cura:</h3>
+  <button onclick="selectHeal('Improvisada', '1d10')">Improvisada</button>
+  <button onclick="selectHeal('Medkit Simples', '3d8')">Medkit Simples</button>
+  <button onclick="selectHeal('Medkit Profissional', '4d6')">Medkit Profissional</button>
+</div>
+
+<div id="accuracy-menu" style="display: none;">
+  <h3>Nível de Acerto:</h3>
+  <button onclick="rollDamage('normal')">Normal</button>
+  <button onclick="rollDamage('bom')">Bom</button>
+  <button onclick="rollDamage('extremo')">Extremo</button>
+  <button onclick="rollDamage('critico')">Criticamente Extremo</button>
+</div>
+
+<div class="container">
+  <div class="status-minimal">
+    <h3>Status</h3>
+    <div class="status-list">
+      <label>Força: <input type="number" id="forca" value="10" /></label>
+      <label>Destreza: <input type="number" id="destreza" value="8" /></label>
+      <label>Vigor: <input type="number" id="vigor" value="7" /></label>
+      <label>Intelecto: <input type="number" id="intelecto" value="12" /></label>
+      <label>Aura: <input type="number" id="aura" value="9" /></label>
+    </div>
+  </div>
+
+  <div class="ficha-header">
+    <input type="text" id="nome" placeholder="Digite o nome..." />
+    <input type="text" id="imagem-url" placeholder="URL da imagem..." />
+    <img
+      id="imagem-preview"
+      src=""
+      alt="Imagem do personagem"
+      style="display: none"
+    />
+  </div>
+
+  <div class="config">
+    <div>
+      <h3>Modo de Rolagem</h3>
+      <button id="vantagem-btn">Vantagem</button>
+      <button id="normal-btn">Normal</button>
+      <button id="desvantagem-btn">Desvantagem</button>
+    </div>
+
+    <div class="difficulty-buttons">
+      <h3>Dificuldade</h3>
+      <button class="difficulty-btn active" data-difficulty="Fácil">Fácil</button>
+      <button class="difficulty-btn" data-difficulty="Médio">Médio</button>
+      <button class="difficulty-btn" data-difficulty="Difícil">Difícil</button>
+      <button class="difficulty-btn" data-difficulty="Extremo">Extremo</button>
+    </div>
+
+    <div id="result-area">Aqui vai o resultado da rolagem</div>
+  </div>
+</div>
+
+<div class="acoes">
+  <h3>Ações</h3>
+  <button class="acao-btn" data-acao="Ataque">Ataque</button>
+  <button class="acao-btn" data-acao="Esquiva">Esquiva</button>
+  <button class="acao-btn" data-acao="Contra-ataque">Contra-ataque</button>
+  <button class="acao-btn" data-acao="Magia Intelecto">Magia Intelecto</button>
+  <button class="acao-btn" data-acao="Magia Aura">Magia Aura</button>
+  <button class="acao-btn" data-acao="Atletismo">Atletismo</button>
+  <button class="acao-btn" data-acao="Mira">Mira</button>
+  <button class="acao-btn" data-acao="Defesa">Defesa</button>
+  <button class="acao-btn" data-acao="Resistencia">Resistencia</button>
+  <button class="acao-btn" data-acao="Teste Força">Teste Força</button>
+  <button class="acao-btn" data-acao="Teste Destreza">Teste Destreza</button>
+  <button class="acao-btn" data-acao="Teste Vigor">Teste Vigor</button>
+  <button class="acao-btn" data-acao="Teste Intelecto">Teste Intelecto</button>
+  <button class="acao-btn" data-acao="Teste Aura">Teste Aura</button>
+</div>
+
+<script src="script2.js"></script>
+<script src="damage-heal2.js"></script>
+
+</body>
+</html>

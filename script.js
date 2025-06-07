@@ -81,6 +81,7 @@ function calculaNivel(total, dificuldade) {
 
   return level;
 }
+
 //rolagem
 function rolarDado() {
   let resultado = Math.floor(Math.random() * 50) + 1;  // Aleatório 1-50

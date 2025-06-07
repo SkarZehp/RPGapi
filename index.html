@@ -1,9 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>RPG Rolagem Automática</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Botão Mestre fixo no canto direito */
+    #master-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #222;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 9999;
+      font-weight: bold;
+    }
+    #master-panel {
+      display: none;
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: #111;
+      color: #eee;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 0 10px #000;
+      z-index: 9998;
+      overflow-y: auto;
+      font-family: monospace;
+    }
+    #master-panel textarea {
+      width: 100%;
+      height: 300px;
+      background: #222;
+      color: #eee;
+      border: none;
+      resize: none;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    #master-panel button {
+      margin-top: 10px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      background: #444;
+      color: #eee;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
 
@@ -46,18 +101,23 @@
   <div class="status-minimal">
     <h3>Status</h3>
     <div class="status-list">
-      <label>Força: <input type="number" id="forca" value="10"></label>
-      <label>Destreza: <input type="number" id="destreza" value="8"></label>
-      <label>Vigor: <input type="number" id="vigor" value="7"></label>
-      <label>Intelecto: <input type="number" id="intelecto" value="12"></label>
-      <label>Aura: <input type="number" id="aura" value="9"></label>
+      <label>Força: <input type="number" id="forca" value="10" /></label>
+      <label>Destreza: <input type="number" id="destreza" value="8" /></label>
+      <label>Vigor: <input type="number" id="vigor" value="7" /></label>
+      <label>Intelecto: <input type="number" id="intelecto" value="12" /></label>
+      <label>Aura: <input type="number" id="aura" value="9" /></label>
     </div>
   </div>
 
   <div class="ficha-header">
-    <input type="text" id="nome" placeholder="Digite o nome...">
-    <input type="text" id="imagem-url" placeholder="URL da imagem...">
-    <img id="imagem-preview" src="" alt="Imagem do personagem" style="display: none;">
+    <input type="text" id="nome" placeholder="Digite o nome..." />
+    <input type="text" id="imagem-url" placeholder="URL da imagem..." />
+    <img
+      id="imagem-preview"
+      src=""
+      alt="Imagem do personagem"
+      style="display: none"
+    />
   </div>
 
   <div class="config">
@@ -90,15 +150,36 @@
   <button class="acao-btn" data-acao="Atletismo">Atletismo</button>
   <button class="acao-btn" data-acao="Mira">Mira</button>
   <button class="acao-btn" data-acao="Defesa">Defesa</button>
-  <button class="acao-btn" data-acao="Defesa">Resistencia</button>
-  <button class="acao-btn" data-acao="Defesa">Teste Força</button>
-  <button class="acao-btn" data-acao="Defesa">Teste Destreza</button>
-  <button class="acao-btn" data-acao="Defesa">Teste Vigor</button>
-  <button class="acao-btn" data-acao="Defesa">Teste Intelecto</button>
-  <button class="acao-btn" data-acao="Defesa">Teste Aura</button>
+  <button class="acao-btn" data-acao="Resistencia">Resistencia</button>
+  <button class="acao-btn" data-acao="Teste Força">Teste Força</button>
+  <button class="acao-btn" data-acao="Teste Destreza">Teste Destreza</button>
+  <button class="acao-btn" data-acao="Teste Vigor">Teste Vigor</button>
+  <button class="acao-btn" data-acao="Teste Intelecto">Teste Intelecto</button>
+  <button class="acao-btn" data-acao="Teste Aura">Teste Aura</button>
 </div>
+
+<!-- BOTÃO MESTRE -->
+<button id="master-button" title="Modo Mestre" style="position: fixed; top: 10px; right: 10px; z-index: 10000; padding: 8px 12px; background: #222; color: #eee; border: none; border-radius: 5px; cursor: pointer;">
+  Mestre
+</button>
+
+<script>
+  const masterButton = document.getElementById('master-button');
+
+  masterButton.addEventListener('click', () => {
+    const senha = prompt('Digite a senha do Mestre:');
+    if (senha === '3982') {
+      // Se a senha for correta, manda pra outra página
+      window.location.href = 'mestre.html'; // Altere para o caminho que quiser
+    } else {
+      alert('Senha incorreta!');
+    }
+  });
+</script>
+
 
 <script src="script.js"></script>
 <script src="damage-heal.js"></script>
+
 </body>
 </html>

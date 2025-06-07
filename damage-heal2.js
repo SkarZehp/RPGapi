@@ -126,8 +126,6 @@ function openDamageMenu() {
           }
 
           function calculateFinalDamage() {
-            const WEBHOOK_URL = 'https://discord.com/api/webhooks/1375277583591280720/bUY8MULq_Ykkf0x9Da9pUmX4K03sLmHLVCRlCUrLC67N_rHDbLy1eFu_wi5jqFTHTzBv';
-
             const playerName = document.getElementById('playerName').value.trim() || 'Desconhecido';
 
             const attackSelect = document.getElementById('attack');
@@ -159,14 +157,6 @@ function openDamageMenu() {
 \`;
 
             document.getElementById('result').innerText = template;
-
-            fetch(WEBHOOK_URL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ content: template })
-            }).then(res => {
-              if (!res.ok) alert('Falha ao enviar pro Discord');
-            }).catch(() => alert('Erro na requisição do Discord'));
           }
         </script>
       </body>
@@ -176,7 +166,6 @@ function openDamageMenu() {
     damageWindow.document.close();
   }
 }
-
 
 function openHealMenu() {
   if (healWindow && !healWindow.closed) {
@@ -258,18 +247,8 @@ function openHealMenu() {
 \`;
 
             document.getElementById('result').innerText = template;
-
-            const WEBHOOK_URL = 'https://discord.com/api/webhooks/1375277583591280720/bUY8MULq_Ykkf0x9Da9pUmX4K03sLmHLVCRlCUrLC67N_rHDbLy1eFu_wi5jqFTHTzBv';
-
-            fetch(WEBHOOK_URL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ content: template })
-            }).then(res => {
-              if (!res.ok) alert('Falha ao enviar pro Discord');
-            }).catch(() => alert('Erro na requisição do Discord'));
           }
-        <\/script>
+        </script>
       </body>
       </html>
     `);
