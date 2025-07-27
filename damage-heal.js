@@ -1,20 +1,31 @@
 const attackOptions = {
   melee: [
-    { name: "Espada", damageDice: "1d8" },
-    { name: "Machado", damageDice: "1d10" },
-    { name: "Adaga", damageDice: "1d4" },
+    { name: "Soco", damageDice: "1d6" },
+    { name: "Katana", damageDice: "3d4" },
+    { name: "Adaga", damageDice: "2d6" },
+    { name: "Machado", damageDice: "2d9" },
+    { name: "Mace", damageDice: "2d6" },
+    { name: "Espada Longa", damageDice: "2d8" },
+    { name: "Lança", damageDice: "2d7" },
+    { name: "Foice", damageDice: "2d8" },
+    { name: "Clava", damageDice: "1d12" },
+    { name: "Martelo de Guerra", damageDice: "3d6" },
     { name: "Outro", damageDice: "custom" }
   ],
   ranged: [
-    { name: "Arco", damageDice: "1d6" },
-    { name: "Besta", damageDice: "2d4" },
-    { name: "Arma de Fogo", damageDice: "2d6" },
+    { name: "Pistola", damageDice: "2d11" },
+    { name: "Escopeta", damageDice: "12d6" },
+    { name: "Sniper", damageDice: "5d10" },
+    { name: "Submetralhadora", damageDice: "6d6" },
+    { name: "Rifle de Assalto", damageDice: "4d8" },
+    { name: "Arco Composto", damageDice: "3d6" },
+    { name: "Besta", damageDice: "3d8" },
+    { name: "Granada", damageDice: "8d10" },
+    { name: "Lança-Chamas", damageDice: "6d6" },
+    { name: "Bazuca", damageDice: "10d12" },
     { name: "Outro", damageDice: "custom" }
   ],
   elemental: [
-    { name: "Fogo", damageDice: "3d4" },
-    { name: "Gelo", damageDice: "2d6" },
-    { name: "Trovão", damageDice: "1d12" },
     { name: "Outro", damageDice: "custom" }
   ]
 };

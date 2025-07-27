@@ -1,20 +1,22 @@
 const attackOptions = {
   melee: [
-    { name: "Espada", damageDice: "1d8" },
-    { name: "Machado", damageDice: "1d10" },
-    { name: "Adaga", damageDice: "1d4" },
+    { name: "Soco", damageDice: "1d6" },
+    { name: "Katana", damageDice: "3d4" },
+    { name: "Adaga", damageDice: "2d6" },
+    { name: "Machado", damageDice: "2d9" },
+    { name: "Mace", damageDice: "2d6" },
     { name: "Outro", damageDice: "custom" }
   ],
   ranged: [
-    { name: "Arco", damageDice: "1d6" },
-    { name: "Besta", damageDice: "2d4" },
-    { name: "Arma de Fogo", damageDice: "2d6" },
+    { name: "Pistola", damageDice: "2d11" },
+    { name: "Escopeta", damageDice: "12d6" },
+    { name: "Sniper", damageDice: "5d10" },
     { name: "Outro", damageDice: "custom" }
   ],
   elemental: [
-    { name: "Fogo", damageDice: "3d4" },
-    { name: "Gelo", damageDice: "2d6" },
-    { name: "Trovão", damageDice: "1d12" },
+    { name: "Nox", damageDice: "custom" },
+    { name: "Lúmen", damageDice: "custom" },
+    { name: "Gaius", damageDice: "custom" },
     { name: "Outro", damageDice: "custom" }
   ]
 };
