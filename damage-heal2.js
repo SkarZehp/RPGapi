@@ -30,7 +30,6 @@ const attackOptions = {
   ]
 };
 
-
 function updateAttacks() {
   const category = document.getElementById("category").value;
   const attackSelect = document.getElementById("attack");
@@ -67,14 +66,40 @@ function checkOtherOption() {
   }
 }
 
-function rollDice(dice) {
-  const [count, sides] = dice.split("d").map(Number);
-  let total = 0;
-  for (let i = 0; i < count; i++) {
-    total += Math.floor(Math.random() * sides) + 1;
+function rollDice(dice, upgradeRaw) {
+  const upgrade = Math.max(0, parseInt(upgradeRaw) || 0);
+
+  if (!dice.includes("d")) {
+    console.error("Formato inválido do dado:", dice);
+    return { resultado: 0, detalhes: "Erro no dado", dados: [] };
   }
-  return total;
+
+  const [baseCount, baseSides] = dice.toLowerCase().split("d").map(Number);
+
+  if (isNaN(baseCount) || isNaN(baseSides)) {
+    console.error("Erro ao converter dado:", baseCount, baseSides);
+    return { resultado: 0, detalhes: "Erro no dado", dados: [] };
+  }
+
+  const count = baseCount + upgrade;
+  const sides = baseSides + upgrade;
+
+  let total = 0;
+  const rolls = [];
+
+  for (let i = 0; i < count; i++) {
+    const roll = Math.floor(Math.random() * sides) + 1;
+    rolls.push(roll);
+    total += roll;
+  }
+
+  return {
+    resultado: total,
+    detalhes: `${count}d${sides}`,
+    dados: rolls
+  };
 }
+
 
 function calculateFinalDamage() {
   const playerName = document.getElementById('playerName').value || "Jogador";
@@ -102,26 +127,31 @@ function calculateFinalDamage() {
     document.getElementById("resultadoDano").textContent = "⚠️ Fórmula de dano inválida.";
     return;
   }
-
-  const baseDamage = rollDice(diceFormula);
-  const finalDamage = Math.max(0, Math.floor(baseDamage * multiplier - armor));
+  const upgrade = parseInt(document.getElementById("upgradeInput").value)
+  const baseDamage = rollDice(diceFormula,upgrade);
+  const finalDamage = Math.max(0, Math.floor(baseDamage.resultado * multiplier - armor));
 
   const tipoExtra = document.getElementById('extraDamageType').value || "";
 
   const template =
 `⎯⎯⎯⎯⎯⎯⎯⎯・${playerName}・⎯⎯⎯⎯⎯⎯⎯⎯
 ➸ Ataque: ${attack} ${tipoExtra ? `(${tipoExtra})` : ""}
-➸ Dano: ${finalDamage} 🎲 (${diceFormula} x${multiplier} - ${armor} de armadura)
+➸ Dano: ${finalDamage} 🎲 (${baseDamage.detalhes} x${multiplier} - ${armor} de armadura)
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯・・・・⎯⎯⎯⎯⎯⎯⎯⎯`;
 
   document.getElementById("result").textContent = template;
+
+  fetch("https://discord.com/api/webhooks/1375277583591280720/bUY8MULq_Ykkf0x9Da9pUmX4K03sLmHLVCRlCUrLC67N_rHDbLy1eFu_wi5jqFTHTzBv", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content: template })
+  });
 }
 
 window.onload = () => {
   updateAttacks();
 
-  // Ativa botão se ainda não estava
-  const btn = document.querySelector("button[onclick='calculateFinalDamage()']");
+  const btn = document.getElementById("attackButton");
   if (btn) {
     btn.addEventListener("click", calculateFinalDamage);
   }

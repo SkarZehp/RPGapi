@@ -93,7 +93,8 @@
   <select id="attack" onchange="checkOtherOption()" style="width: 100%; padding: 5px; margin-bottom: 10px;">
     <option value="">--Escolha uma categoria primeiro--</option>
   </select>
-
+  <label for="upgradeInput">Upgrade:</label>
+  <input type="number" id="upgradeInput" min="0" max="15" value="0">
   <div id="extraDamageContainer" style="display:none; margin-top:10px;">
     <h4>Tipo do Ataque:</h4>
     <input type="text" id="extraDamageType" placeholder="Ex: plasma, sombra..." style="width:100%; padding:5px;">
@@ -112,7 +113,7 @@
   <h3>Armadura do Alvo:</h3>
   <input type="number" id="armor" value="0" style="width: 100px; padding: 5px;">
 
-  <br><br><button onclick="calculateFinalDamage()">Calcular Dano</button>
+  <br><br><button id="attackButton">Atacar</button>
 
   <div id="result" style="margin-top:20px; font-weight:bold;">Resultado aparecerá aqui</div>
 </div>
