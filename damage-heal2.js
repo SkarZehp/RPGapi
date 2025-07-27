@@ -5,21 +5,31 @@ const attackOptions = {
     { name: "Adaga", damageDice: "2d6" },
     { name: "Machado", damageDice: "2d9" },
     { name: "Mace", damageDice: "2d6" },
+    { name: "Espada Longa", damageDice: "2d8" },
+    { name: "Lança", damageDice: "2d7" },
+    { name: "Foice", damageDice: "2d8" },
+    { name: "Clava", damageDice: "1d12" },
+    { name: "Martelo de Guerra", damageDice: "3d6" },
     { name: "Outro", damageDice: "custom" }
   ],
   ranged: [
     { name: "Pistola", damageDice: "2d11" },
     { name: "Escopeta", damageDice: "12d6" },
     { name: "Sniper", damageDice: "5d10" },
+    { name: "Submetralhadora", damageDice: "6d6" },
+    { name: "Rifle de Assalto", damageDice: "4d8" },
+    { name: "Arco Composto", damageDice: "3d6" },
+    { name: "Besta", damageDice: "3d8" },
+    { name: "Granada", damageDice: "8d10" },
+    { name: "Lança-Chamas", damageDice: "6d6" },
+    { name: "Bazuca", damageDice: "10d12" },
     { name: "Outro", damageDice: "custom" }
   ],
   elemental: [
-    { name: "Nox", damageDice: "custom" },
-    { name: "Lúmen", damageDice: "custom" },
-    { name: "Gaius", damageDice: "custom" },
     { name: "Outro", damageDice: "custom" }
   ]
 };
+
 
 function updateAttacks() {
   const category = document.getElementById("category").value;
