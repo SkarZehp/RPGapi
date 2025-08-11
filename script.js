@@ -84,16 +84,11 @@ function calculaNivel(total, dificuldade) {
 
 //rolagem
 function rolarDado() {
-  let resultado = Math.floor(Math.random() * 50) + 1;  // Aleatório 1-50
-
-  const penalidade = Math.floor(Math.random() * 5);   // Penalidade de 0 a 4
-  resultado -= penalidade;                            // Diminui
-
-  if (resultado < 1) resultado = 1;                   // Nunca menor que 1
-
+  let resultado = Math.floor(Math.random() * 50) + 1;
+  if (resultado < 1) resultado = 1;  // mínimo 1
+  if (resultado > 50) resultado = 50; // máximo 50
   return resultado;
 }
-
 
 
 // Rola com modo normal, vantagem ou desvantagem
