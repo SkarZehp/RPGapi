@@ -33,21 +33,28 @@
   </div>
 
   <div class="config">
-    <div>
-      <h3>Modo de Rolagem</h3>
-      <button id="vantagem-btn">Vantagem</button>
-      <button id="normal-btn">Normal</button>
-      <button id="desvantagem-btn">Desvantagem</button>
-    </div>
+  <div>
+    <h3>Impulso</h3>
+    <button id="impulso-plus">+</button>
+    <span id="impulso-display">0</span>
+    <button id="impulso-minus">-</button>
+  </div>
+
 
     <div class="difficulty-buttons">
       <h3>Dificuldade</h3>
-      <button class="difficulty-btn active" data-difficulty="Fácil">Fácil</button>
-      <button class="difficulty-btn" data-difficulty="Médio">Médio</button>
+      <button class="difficulty-btn" data-difficulty="Fácil">Fácil</button>
+      <button class="difficulty-btn active" data-difficulty="Médio">Médio</button>
       <button class="difficulty-btn" data-difficulty="Difícil">Difícil</button>
+      <button class="difficulty-btn" data-difficulty="Muito difícil">Muito Difícil</button>
       <button class="difficulty-btn" data-difficulty="Extremo">Extremo</button>
+      <button class="difficulty-btn" data-difficulty="Insano">Insano</button>
     </div>
-
+    <div class="custom-df">
+      <label>DF Personalizado: 
+          <input type="number" id="df-custom" placeholder="Ex:10" style="width:100px;">
+      </label>
+    </div>
     <div id="result-area">Aqui vai o resultado da rolagem</div>
   </div>
 </div>

@@ -1,5 +1,6 @@
-// Controle do modo de rolagem
-let modoRolagem = 'normal';
+// Controle do ímpeto e inicializações
+let impulso = 0;
+let dfCustom = 0;
 
 // Mapeia ação para atributo correspondente
 const acaoAtributo = {
@@ -43,104 +44,87 @@ document.getElementById('imagem-url').addEventListener('input', function() {
   }
 });
 
-function calculaNivel(total, dificuldade) {
-  let level = '';
+// Rola 2d12
+function rolar2d12() {
+  const dado1 = Math.floor(Math.random() * 12) + 1;
+  const dado2 = Math.floor(Math.random() * 12) + 1;
+  return dado1 + dado2;
+}
 
-  if (dificuldade === 'Fácil') {
-    if (total >= 45) level = 'Criticamente Extremo';
-    else if (total >= 38) level = 'Extremo';
-    else if (total >= 28) level = 'Bom';
-    else if (total >= 17) level = 'Normal';
-    else if (total >= 7) level = 'Ruim';        // Aqui caiu um pouco, pra ficar mais alcançável
-    else level = 'Erro Fatal';
+// Calcula nível de sucesso baseado na dificuldade
+function calculaNivel(total, dificuldadeValor) {
+  if (total >= dificuldadeValor + 8) return 'Extremo';
+  if (total >= dificuldadeValor + 4) return 'Bom';
+  if (total >= dificuldadeValor) return 'Normal';
+  return 'Falha';
+}
 
-  } else if (dificuldade === 'Médio') {
-    if (total >= 47) level = 'Criticamente Extremo';
-    else if (total >= 40) level = 'Extremo';
-    else if (total >= 30) level = 'Bom';
-    else if (total >= 20) level = 'Normal';
-    else if (total >= 8) level = 'Ruim';        // Mesma pegada
-    else level = 'Erro Fatal';
-
-  } else if (dificuldade === 'Difícil') {
-    if (total >= 49) level = 'Criticamente Extremo';
-    else if (total >= 42) level = 'Extremo';
-    else if (total >= 33) level = 'Bom';
-    else if (total >= 23) level = 'Normal';
-    else if (total >= 10) level = 'Ruim';       // Um pouco mais alto que o fácil, mas alcançável
-    else level = 'Erro Fatal';
-
-  } else if (dificuldade === 'Extremo') {
-    if (total >= 52) level = 'Criticamente Extremo';
-    else if (total >= 45) level = 'Extremo';
-    else if (total >= 36) level = 'Bom';
-    else if (total >= 26) level = 'Normal';
-    else if (total >= 13) level = 'Ruim';       // Ruim, mas não impossível
-    else level = 'Erro Fatal';
+function getDificuldadeValor(nome) {
+  const dfCustom = parseInt(document.getElementById('df-custom').value);
+  if (!isNaN(dfCustom) && dfCustom > 0) {
+    return dfCustom; // Prioriza DF custom se preenchido
   }
 
-  return level;
+  const dificuldadeMap = {
+    'Fácil': 8,
+    'Médio': 11,
+    'Difícil': 14,
+    'Muito difícil': 17,
+    'Extremo': 20,
+    'Insano': 23
+  };
+  return dificuldadeMap[nome] || 10;
 }
 
-//rolagem
-function rolarDado() {
-  let resultado = Math.floor(Math.random() * 50) + 1;
-  if (resultado < 1) resultado = 1;  // mínimo 1
-  if (resultado > 50) resultado = 50; // máximo 50
-  return resultado;
+// Atualiza display do ímpeto
+function atualizarImpulsoDisplay() {
+  document.getElementById('impulso-display').textContent = impulso;
+  document.getElementById('df-custom').value = dfCustom;
+
 }
 
+// Aumenta ímpeto
+function aumentarImpulso() {
+  impulso += 4;
+  atualizarImpulsoDisplay();
+}
 
-// Rola com modo normal, vantagem ou desvantagem
-function rolarComModo() {
-  const primeira = rolarDado();
-  if (modoRolagem === 'normal') return { roll: primeira, rolls: [primeira] };
-
-  const segunda = rolarDado();
-  const rollFinal = (modoRolagem === 'vantagem') ? Math.max(primeira, segunda) : Math.min(primeira, segunda);
-  return { roll: rollFinal, rolls: [primeira, segunda] };
+// Diminui ímpeto
+function diminuirImpulso() {
+  impulso -= 4;
+  atualizarImpulsoDisplay();
 }
 
 // Rola a ação e mostra resultado + manda pro Discord
 function rolarAcao(acao) {
   const ficha = pegarFicha();
   const atributoNome = acaoAtributo[acao];
-  const nome = ficha.nome;
-  const imagemURL = ficha.imagem;
-
   if (!atributoNome) return alert('Ação inválida');
 
   const atributoValor = ficha[atributoNome] || 0;
-  const dificuldade = document.querySelector('.difficulty-btn.active').dataset.difficulty;
+  const dificuldadeNome = document.querySelector('.difficulty-btn.active').dataset.difficulty;
+  const dificuldadeValor = getDificuldadeValor(dificuldadeNome);
 
-  const { roll, rolls } = rolarComModo();
-  const total = roll + atributoValor;
-  const nivel = calculaNivel(total, dificuldade);
-  const acertou = (nivel !== 'Erro Fatal' && nivel !== 'Ruim') ? 'Acertou!' : 'Errou!';
+  // Rolagem + ímpeto
+  const rollBase = rolar2d12() + Math.floor(atributoValor / 2);
+  const total = rollBase + impulso;
 
-  const resultadoTexto = 
-`⎯⎯⎯⎯⎯⎯⎯⎯・${nome || 'Sem nome'}・⎯⎯⎯⎯⎯⎯⎯⎯
+  const nivel = calculaNivel(total, dificuldadeValor);
+
+  const resultadoTexto =
+`⎯⎯⎯⎯⎯⎯⎯⎯・${ficha.nome || 'Sem nome'}・⎯⎯⎯⎯⎯⎯⎯⎯
 ➸ Ação: ${acao}
-¦ Modo: ${modoRolagem}
-〆 Dificuldade: ${dificuldade}
-♤ Rolagens: ${rolls.join(', ')}
+〆 Dificuldade: ${dificuldadeNome} (${dificuldadeValor})
 ⍀ Atributo (${atributoNome}): ${atributoValor}
-が Total: ${total}
+♤ Rolagem&Stt(${rollBase}) + IMP(${impulso}) = ${total}
 ⎯⎯⎯⎯⎯・${nivel}・⎯⎯⎯⎯⎯`;
 
   document.getElementById('result-area').textContent = resultadoTexto;
-  enviarDiscord(resultadoTexto, imagemURL);
-}
+  enviarDiscord(resultadoTexto, ficha.imagem);
 
-// Define modo de rolagem e atualiza botão ativo
-function setModo(modo) {
-  modoRolagem = modo;
-
-  document.getElementById('vantagem-btn').classList.remove('active');
-  document.getElementById('normal-btn').classList.remove('active');
-  document.getElementById('desvantagem-btn').classList.remove('active');
-
-  document.getElementById(`${modo}-btn`).classList.add('active');
+  // Reset impulso para neutro
+  impulso = 0;
+  atualizarImpulsoDisplay();
 }
 
 // Salva ficha no localStorage
@@ -200,15 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('input', salvarFicha);
   });
 
-  document.getElementById('vantagem-btn').addEventListener('click', () => setModo('vantagem'));
-  document.getElementById('normal-btn').addEventListener('click', () => setModo('normal'));
-  document.getElementById('desvantagem-btn').addEventListener('click', () => setModo('desvantagem'));
+  document.getElementById('impulso-plus').addEventListener('click', aumentarImpulso);
+  document.getElementById('impulso-minus').addEventListener('click', diminuirImpulso);
 
   document.querySelectorAll('.acao-btn').forEach(botao => {
     botao.addEventListener('click', () => rolarAcao(botao.textContent));
   });
-
-  setModo('normal');
 
   document.querySelectorAll('.difficulty-btn').forEach(button => {
     button.addEventListener('click', () => {
@@ -216,4 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
       button.classList.add('active');
     });
   });
+
+  atualizarImpulsoDisplay();
 });
