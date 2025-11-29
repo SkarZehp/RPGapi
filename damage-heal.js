@@ -30,6 +30,7 @@ const attackOptions = {
   ]
 };
 
+
 function updateAttacks() {
   const category = document.getElementById("category").value;
   const attackSelect = document.getElementById("attack");
@@ -102,57 +103,96 @@ function rollDice(dice, upgradeRaw) {
 
 
 function calculateFinalDamage() {
-  const playerName = document.getElementById('playerName').value || "Jogador";
+  const results = pegarResultados();
+  const ficha = results.ficha || pegarFicha();
+  const playerName = ficha.nome || "Jogador";
+
   const category = document.getElementById('category').value;
   const attackSelect = document.getElementById('attack');
   const attack = attackSelect.value;
-  const accuracy = document.getElementById('accuracy').value;
-  const armor = parseInt(document.getElementById('armor').value) || 0;
 
-  let multiplier = 1;
-  switch (accuracy) {
-    case 'bom': multiplier = 1.25; break;
-    case 'extremo': multiplier = 1.5; break;
-    case 'critico': multiplier = 2; break;
-  }
+  const total = results.total || 0;
+  const dificuldadeNome = document.querySelector('.difficulty-btn.active').dataset.difficulty;
+  const dificuldadeValor = getDificuldadeValor(dificuldadeNome);
+  const diff = total - dificuldadeValor;
+
+  const atributoValor = ficha[results.atributoNome] || 0;
 
   let diceFormula = attackSelect.selectedOptions[0]?.dataset.dice;
-
-  // Se "Outro", pega a fórmula extra
   if (diceFormula === "custom") {
     diceFormula = document.getElementById('extraDamageFormula').value;
   }
 
   if (!diceFormula || !diceFormula.includes("d")) {
-    document.getElementById("resultadoDano").textContent = "⚠️ Fórmula de dano inválida.";
+    document.getElementById("result").textContent = "⚠️ Fórmula de dano inválida.";
     return;
   }
-  const upgrade = parseInt(document.getElementById("upgradeInput").value)
-  const baseDamage = rollDice(diceFormula,upgrade);
-  const finalDamage = Math.max(0, Math.floor(baseDamage.resultado * multiplier - armor));
+
+  const upgrade = parseInt(document.getElementById("upgradeInput").value) || 0;
+  const baseDamageRoll = rollDice(diceFormula, upgrade);
+
+  let finalDamage = 0;
+  let impactCategory = "";
+
+  if (diff <= 0) {
+    impactCategory = "Falha";
+    finalDamage = 0;
+  } else if (diff <= 3) {
+    impactCategory = "Suave";
+    finalDamage = Math.max(1, Math.floor(baseDamageRoll.resultado / 2));
+  } else if (diff <= 6) {
+    impactCategory = "Leve";
+    finalDamage = baseDamageRoll.resultado;
+  } else if (diff <= 10) {
+    impactCategory = "Médio";
+    finalDamage = baseDamageRoll.resultado + Math.floor(baseDamageRoll.resultado / 2);
+  } else if (diff <= 14) {
+    impactCategory = "Forte";
+    const reroll = Math.floor(Math.random() * 4) + 1; // <<<< menor reroll (1d4)
+    finalDamage = baseDamageRoll.resultado + Math.floor(baseDamageRoll.resultado / 2) + reroll;
+  } else {
+    impactCategory = "Letal";
+    finalDamage = Math.floor((baseDamageRoll.resultado + atributoValor) * 1.5); // <<<< multiplicador menor
+  }
 
   const tipoExtra = document.getElementById('extraDamageType').value || "";
 
   const template =
 `⎯⎯⎯⎯⎯⎯⎯⎯・${playerName}・⎯⎯⎯⎯⎯⎯⎯⎯
 ➸ Ataque: ${attack} ${tipoExtra ? `(${tipoExtra})` : ""}
-➸ Dano: ${finalDamage} 🎲 (${baseDamage.detalhes} x${multiplier} - ${armor} de armadura)
+➸ Categoria de Impacto: ${impactCategory}
+➸ Dano: ${finalDamage} 🎲 (${baseDamageRoll.detalhes}${diff <= 3 ? " mínimo" : ""}${diff >=7 && diff <=14 ? " + reroll 1d4" : ""})
+➸ Acerto: ${results.nivel}
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯・・・・⎯⎯⎯⎯⎯⎯⎯⎯`;
 
   document.getElementById("result").textContent = template;
 
-  fetch("https://discord.com/api/webhooks/1375277583591280720/bUY8MULq_Ykkf0x9Da9pUmX4K03sLmHLVCRlCUrLC67N_rHDbLy1eFu_wi5jqFTHTzBv", {
+  // Envia pro Discord (se quiser manter)
+  fetch(WEBHOOK_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ content: template })
   });
 }
 
-window.onload = () => {
-  updateAttacks();
 
-  const btn = document.getElementById("attackButton");
-  if (btn) {
-    btn.addEventListener("click", calculateFinalDamage);
+document.addEventListener('DOMContentLoaded', () => {
+  // Inicializa display
+  atualizarImpulsoDisplay();
+
+  // Configura clique nas dificuldades
+  document.querySelectorAll('.difficulty-btn').forEach(botao => {
+    botao.addEventListener('click', () => {
+      document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
+      botao.classList.add('active');
+    });
+  });
+
+  // Listener do botão de ataque
+  const attackBtn = document.getElementById("attackButton");
+  if (attackBtn) {
+    attackBtn.addEventListener("click", () => {
+      calculateFinalDamage();
+    });
   }
-};
+});

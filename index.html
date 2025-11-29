@@ -33,48 +33,48 @@
   </div>
 
   <div class="config">
-  <div>
-    <h3>Impulso</h3>
-    <button id="impulso-plus">+</button>
-    <span id="impulso-display">0</span>
-    <button id="impulso-minus">-</button>
-  </div>
+      <div>
+        <h3>Ímpeto</h3>
+        <button id="impulso-plus">+</button>
+        <span id="impulso-display">0</span>
+        <button id="impulso-minus">-</button>
+      </div>
 
 
-    <div class="difficulty-buttons">
-      <h3>Dificuldade</h3>
-      <button class="difficulty-btn" data-difficulty="Fácil">Fácil</button>
-      <button class="difficulty-btn active" data-difficulty="Médio">Médio</button>
-      <button class="difficulty-btn" data-difficulty="Difícil">Difícil</button>
-      <button class="difficulty-btn" data-difficulty="Muito difícil">Muito Difícil</button>
-      <button class="difficulty-btn" data-difficulty="Extremo">Extremo</button>
-      <button class="difficulty-btn" data-difficulty="Insano">Insano</button>
+        <div class="difficulty-buttons">
+          <h3>Dificuldade</h3>
+          <button class="difficulty-btn" data-difficulty="Fácil">Fácil</button>
+          <button class="difficulty-btn active" data-difficulty="Médio">Médio</button>
+          <button class="difficulty-btn" data-difficulty="Difícil">Difícil</button>
+          <button class="difficulty-btn" data-difficulty="Muito difícil">Muito Difícil</button>
+          <button class="difficulty-btn" data-difficulty="Extremo">Extremo</button>
+          <button class="difficulty-btn" data-difficulty="Insano">Insano</button>
+        </div>
+        <div class="custom-df">
+          <label>DF Personalizado: 
+              <input type="number" id="df-custom" placeholder="Ex:10" style="width:100px;">
+          </label>
+        </div>
+        <div id="result-area">Aqui vai o resultado da rolagem</div>
+      </div>
     </div>
-    <div class="custom-df">
-      <label>DF Personalizado: 
-          <input type="number" id="df-custom" placeholder="Ex:10" style="width:100px;">
-      </label>
-    </div>
-    <div id="result-area">Aqui vai o resultado da rolagem</div>
-  </div>
-</div>
 
-<div class="acoes">
-  <h3>Ações</h3>
-  <button class="acao-btn" data-acao="Ataque">Ataque</button>
-  <button class="acao-btn" data-acao="Esquiva">Esquiva</button>
-  <button class="acao-btn" data-acao="Contra-ataque">Contra-ataque</button>
-  <button class="acao-btn" data-acao="Magia Intelecto">Magia Intelecto</button>
-  <button class="acao-btn" data-acao="Magia Aura">Magia Aura</button>
-  <button class="acao-btn" data-acao="Atletismo">Atletismo</button>
-  <button class="acao-btn" data-acao="Mira">Mira</button>
-  <button class="acao-btn" data-acao="Defesa">Defesa</button>
-  <button class="acao-btn" data-acao="Resistencia">Resistencia</button>
-  <button class="acao-btn" data-acao="Teste Força">Teste Força</button>
-  <button class="acao-btn" data-acao="Teste Destreza">Teste Destreza</button>
-  <button class="acao-btn" data-acao="Teste Vigor">Teste Vigor</button>
-  <button class="acao-btn" data-acao="Teste Intelecto">Teste Intelecto</button>
-  <button class="acao-btn" data-acao="Teste Aura">Teste Aura</button>
+    <div class="acoes">
+      <h3>Ações</h3>
+      <button class="acao-btn" data-acao="Ataque">Ataque</button>
+      <button class="acao-btn" data-acao="Esquiva">Esquiva</button>
+      <button class="acao-btn" data-acao="Contra-ataque">Contra-ataque</button>
+      <button class="acao-btn" data-acao="Magia Intelecto">Magia Intelecto</button>
+      <button class="acao-btn" data-acao="Magia Aura">Magia Aura</button>
+      <button class="acao-btn" data-acao="Atletismo">Atletismo</button>
+      <button class="acao-btn" data-acao="Mira">Mira</button>
+      <button class="acao-btn" data-acao="Defesa">Defesa</button>
+      <button class="acao-btn" data-acao="Resistencia">Resistencia</button>
+      <button class="acao-btn" data-acao="Teste Força">Teste Força</button>
+      <button class="acao-btn" data-acao="Teste Destreza">Teste Destreza</button>
+      <button class="acao-btn" data-acao="Teste Vigor">Teste Vigor</button>
+      <button class="acao-btn" data-acao="Teste Intelecto">Teste Intelecto</button>
+      <button class="acao-btn" data-acao="Teste Aura">Teste Aura</button>
 </div>
 
 <!-- BOTÃO MESTRE -->
@@ -84,9 +84,6 @@
 <button onclick="toggle('bloco-dano')">+ Dano</button>
 <div id="bloco-dano" class="bloco-dano" style="display: none;">
   <h4>🎯 Configurar Dano</h4>
-
-  <h3>Jogador:</h3>
-  <input type="text" id="playerName" placeholder="Nome do player" style="width: 100%; padding: 5px; margin-bottom: 15px;">
 
   <h3>Categoria:</h3>
   <select id="category" onchange="updateAttacks()" style="width: 100%; padding: 5px; margin-bottom: 10px;">
@@ -110,18 +107,10 @@
   </div>
 
   <h3>Nível de Acerto:</h3>
-  <select id="accuracy" style="width: 100%; padding: 5px; margin-bottom: 10px;">
-    <option value="normal">Normal</option>
-    <option value="bom">Bom</option>
-    <option value="extremo">Extremo</option>
-    <option value="critico">Crítico</option>
-  </select>
-
+  <span id="accuracy-display">⎯</span>
   <h3>Armadura do Alvo:</h3>
   <input type="number" id="armor" value="0" style="width: 100px; padding: 5px;">
-
   <br><br><button id="attackButton">Atacar</button>
-
   <div id="result" style="margin-top:20px; font-weight:bold;">Resultado aparecerá aqui</div>
 </div>
 
