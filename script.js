@@ -111,7 +111,7 @@ function rolarAcao(acao) {
 
   // Salva para usar no dano
   ultimoResultado = { nivel, total, acao, atributoNome, atributoValor, ficha };
-
+  console.log(ultimoResultado);
   // Reset
   dfCustom = 0;
   impulso = 0;
@@ -148,3 +148,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+const Key = 'RPG'
+
+function montarDados(){
+  return {
+    ficha: pegarFicha()
+  }
+}
+
+function salvar(){
+  const dados = montarDados();
+  localStorage.setItem(Key, JSON.stringify(dados));
+}
+
+function carregar(){
+  const dados = JSON.parse(localStorage.getItem(Key));
+  if (!dados) return;
+  const ficha = dados.ficha;
+  document.getElementById('nome').value = ficha.nome || '';
+  document.getElementById('forca').value = ficha.forca || 0;
+  document.getElementById('destreza').value = ficha.destreza || 0;
+  document.getElementById('vigor').value = ficha.vigor || 0;
+  document.getElementById('intelecto').value = ficha.intelecto || 0;
+  document.getElementById('aura').value = ficha.aura || 0;
+  document.getElementById('imagem-url').value = ficha.imagem || '';
+  const img = document.getElementById('imagem-preview');
+  img.src = ficha.imagem || '';
+  img.style.display = ficha.imagem ? 'block' : 'none';
+}
+
+window.onload = carregar;
+document.querySelectorAll('#nome, #forca, #destreza, #vigor, #intelecto, #aura, #imagem-url')
+  .forEach(campo => campo.addEventListener('input', salvar));

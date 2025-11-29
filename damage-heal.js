@@ -145,7 +145,7 @@ function calculateFinalDamage() {
     finalDamage = baseDamageRoll.resultado;
   } else if (diff <= 10) {
     impactCategory = "Médio";
-    finalDamage = baseDamageRoll.resultado + Math.floor(baseDamageRoll.resultado / 2);
+    finalDamage = baseDamageRoll.resultado + Math.floor(results.atributoValor/ 2);
   } else if (diff <= 14) {
     impactCategory = "Forte";
     const reroll = Math.floor(Math.random() * 4) + 1; // <<<< menor reroll (1d4)
@@ -196,3 +196,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
