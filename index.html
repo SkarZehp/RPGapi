@@ -128,9 +128,36 @@
   });
 </script>
 
+<!-- BOTÃO PARA ABRIR MODAL -->
+<button id="open-bestiario" class="btn">🗂️ Abrir Bestiário</button>
 
+<!-- MODAL BESTIÁRIO -->
+<div id="bestiario-modal" class="modal">
+  <div class="modal-content">
+    <span id="close-bestiario" class="close">&times;</span>
+    <h2>🗂️ Bestiário</h2>
+
+    <!-- Lista de criaturas -->
+    <div id="bestiario-list" class="bestiario-list"></div>
+
+    <hr>
+
+    <!-- Formulário de criação -->
+    <h3>➕ Adicionar Criatura</h3>
+    <div class="form-criatura">
+      <label>Nome: <input type="text" id="nome-criatura" placeholder="Ex: Goblin"></label>
+      <label>Imagem URL: <input type="text" id="url-criatura" placeholder="https://..."></label>
+      <label>HP Máx: <input type="number" id="hp-criatura" value="10"></label>
+      <label>Ímpeto Inicial: <input type="number" id="impeto-criatura" value="0"></label>
+      <button id="btn-add-criatura">Adicionar Criatura</button>
+    </div>
+  </div>
+</div>
+
+<script src="bestiario.js"></script>
 <script src="script.js"></script>
 <script src="damage-heal.js"> </script>
+
 <script>
 function toggle(id) {
   const el = document.getElementById(id);
