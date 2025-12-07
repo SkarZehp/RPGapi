@@ -7,12 +7,28 @@
 </head>
 <body>
 
+  <button id="fab" class="fab">☰</button>
+
+  <div id="overlay" class="overlay"></div>
+
+  <aside id="menu" class="side-menu">
+    <div class="menu-window">
+      <h2 class="menutitle">Menu</h2>
+      <div class="ficha-principal">
+
+        <div class="image-slot"></div>
+        <label id="menu-ficha-nome">Nome:</label>
+
+      </div>
+    </div>
+  </aside>
+  
 <h1>Sistema de Rolagem RPG</h1>
 
 <div class="container">
   <div class="status-minimal">
     <h3>Status</h3>
-    <div class="status-list">
+    <div class="status-list" id="Stts-wrapper">
       <label>Força: <input type="number" id="forca" value="10" /></label>
       <label>Destreza: <input type="number" id="destreza" value="8" /></label>
       <label>Vigor: <input type="number" id="vigor" value="7" /></label>
@@ -149,6 +165,11 @@
       <label>Imagem URL: <input type="text" id="url-criatura" placeholder="https://..."></label>
       <label>HP Máx: <input type="number" id="hp-criatura" value="10"></label>
       <label>Ímpeto Inicial: <input type="number" id="impeto-criatura" value="0"></label>
+      <label>Força: <input type="number" id="for-criatura" value="0"></label>
+      <label>Aura: <input type="number" id="aur-criatura" value="0"></label>
+      <label>Destreza: <input type="number" id="des-criatura" value="0"></label>
+      <label>Vigor: <input type="number" id="vig-criatura" value="0"></label>
+      <label>Intelecto: <input type="number" id="int-criatura" value="0"></label>
       <button id="btn-add-criatura">Adicionar Criatura</button>
     </div>
   </div>

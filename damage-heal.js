@@ -1,29 +1,29 @@
 const attackOptions = {
-  melee: [
-    { name: "Soco", damageDice: "1d6" },
-    { name: "Katana", damageDice: "3d4" },
-    { name: "Adaga", damageDice: "2d6" },
-    { name: "Machado", damageDice: "2d9" },
-    { name: "Mace", damageDice: "2d6" },
-    { name: "Espada Longa", damageDice: "2d8" },
-    { name: "Lança", damageDice: "2d7" },
-    { name: "Foice", damageDice: "2d8" },
-    { name: "Clava", damageDice: "1d12" },
-    { name: "Martelo de Guerra", damageDice: "3d6" },
-    { name: "Outro", damageDice: "custom" }
-  ],
-  ranged: [
-    { name: "Pistola", damageDice: "2d11" },
-    { name: "Escopeta", damageDice: "12d6" },
-    { name: "Sniper", damageDice: "5d10" },
-    { name: "Submetralhadora", damageDice: "6d6" },
-    { name: "Rifle de Assalto", damageDice: "4d8" },
-    { name: "Arco Composto", damageDice: "3d6" },
-    { name: "Besta", damageDice: "3d8" },
-    { name: "Granada", damageDice: "8d10" },
-    { name: "Lança-Chamas", damageDice: "6d6" },
-    { name: "Bazuca", damageDice: "10d12" },
-    { name: "Outro", damageDice: "custom" }
+    melee: [
+      { name: "Soco", damageDice: "1d4" },
+      { name: "Katana", damageDice: "2d6" },
+      { name: "Adaga", damageDice: "1d6" },
+      { name: "Machado", damageDice: "2d6" },
+      { name: "Mace", damageDice: "1d8" },
+      { name: "Espada Longa", damageDice: "2d7" },
+      { name: "Lança", damageDice: "1d10" },
+      { name: "Foice", damageDice: "1d10" },
+      { name: "Clava", damageDice: "1d10" },
+      { name: "Martelo de Guerra", damageDice: "2d8" },
+      { name: "Outro", damageDice: "custom" }
+    ],
+ranged: [
+  { name: "Pistola", damageDice: "2d6" },
+  { name: "Escopeta", damageDice: "3d6" },
+  { name: "Sniper", damageDice: "2d10" },
+  { name: "Submetralhadora", damageDice: "4d4" },
+  { name: "Rifle de Assalto", damageDice: "2d8" },
+  { name: "Arco Composto", damageDice: "2d6" },
+  { name: "Besta", damageDice: "2d8" },
+  { name: "Granada", damageDice: "3d10" },
+  { name: "Lança-Chamas", damageDice: "3d6" },
+  { name: "Bazuca", damageDice: "4d10" }, // ainda alto, mas é bazuca, raríssimo
+  { name: "Outro", damageDice: "custom" }
   ],
   elemental: [
     { name: "Outro", damageDice: "custom" }
@@ -134,26 +134,31 @@ function calculateFinalDamage() {
   let finalDamage = 0;
   let impactCategory = "";
 
-  if (diff <= 0) {
+  if (diff <= -1) {
     impactCategory = "Falha";
     finalDamage = 0;
-  } else if (diff <= 3) {
+
+  } else if (diff <= 0) {
     impactCategory = "Suave";
-    finalDamage = Math.max(1, Math.floor(baseDamageRoll.resultado / 2));
-  } else if (diff <= 6) {
+    finalDamage = Math.max(1, Math.floor(baseDamageRoll.resultado * 0.75));
+
+  } else if (diff <= 3) {
     impactCategory = "Leve";
     finalDamage = baseDamageRoll.resultado;
+
   } else if (diff <= 10) {
     impactCategory = "Médio";
-    finalDamage = baseDamageRoll.resultado + Math.floor(results.atributoValor/ 2);
+    finalDamage = baseDamageRoll.resultado + Math.floor(atributoValor / 3);
+
   } else if (diff <= 14) {
     impactCategory = "Forte";
-    const reroll = Math.floor(Math.random() * 4) + 1; // <<<< menor reroll (1d4)
-    finalDamage = baseDamageRoll.resultado + Math.floor(baseDamageRoll.resultado / 2) + reroll;
+    finalDamage = Math.floor(baseDamageRoll.resultado * 1.3) + Math.floor(atributoValor / 2);
+
   } else {
     impactCategory = "Letal";
-    finalDamage = Math.floor((baseDamageRoll.resultado + atributoValor) * 1.5); // <<<< multiplicador menor
+    finalDamage = Math.floor(baseDamageRoll.resultado * 1.5) + atributoValor;
   }
+
 
   const tipoExtra = document.getElementById('extraDamageType').value || "";
 

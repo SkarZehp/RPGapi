@@ -27,6 +27,24 @@ let ultimoResultado = {};
 // FUNÇÕES AUXILIARES
 // =========================
 
+//Menu
+const fab = document.getElementById("fab");     // botão
+const overlay = document.getElementById("overlay"); // fundo escuro
+
+fab.addEventListener("click", () => {
+  document.body.classList.toggle("open");
+  const menuNome = document.getElementById("menu-ficha-nome");
+  const ficha = pegarFicha();
+  const nome = ficha?.nome ?? 'Sem nome';
+  menuNome.textContent = `Nome: ${nome}`;
+
+});
+
+overlay.addEventListener("click", () => {
+  document.body.classList.remove("open");
+});
+
+
 // Pega os dados da ficha
 function pegarFicha() {
   return {

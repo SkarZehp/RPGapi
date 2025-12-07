@@ -407,6 +407,7 @@ button.active {
 
 /* CARD */
 .card {
+  display: flex;
   background-color: #3a3a3a; /* cinza médio */
   border-radius: 10px;
   padding: 10px;
@@ -426,10 +427,24 @@ button.active {
 .card img {
   width: 80px;
   height: 80px;
+  align-items: center;
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 8px;
   border: 2px solid #ff4444; /* borda vermelha */
+}
+.card-wrapper img {
+  width: 80px;
+  height: 80px;
+
+  display: block;
+  margin: 0 auto; /* CENTRALIZA */
+
+  object-fit: cover;
+  border-radius: 6px;
+
+  margin-bottom: 8px;
+  border: 2px solid #ff4444;
 }
 
 .card .card-nome {
@@ -454,7 +469,6 @@ button.active {
   background-color: #ff0000; /* vermelho vivo */
 }
 
-/* FORMULÁRIO DE CRIAÇÃO */
 .form-criatura {
   margin-top: 15px;
   display: flex;
@@ -501,4 +515,164 @@ button.active {
   justify-content: center;
   gap: 4px;
   margin-top: 5px;
+}
+
+.card-stt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #770000;
+  color: #fff;
+
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-weight: bold;
+  min-width: 26px;
+
+  box-shadow: 0 0 3px #0005;
+}
+
+.card-stt small {
+  font-size: 9px;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+
+.card-stats {
+  background-color: #550000;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  gap: 6px;
+}
+
+.card-wrapper {
+  background-color: #330000;
+  border: 2px solid #550000;
+  border-radius: 10px;
+
+  padding: 12px;
+  margin: 10px 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  box-shadow: 0 0 6px #0005;
+}
+
+
+.fab {
+  position: fixed;
+  background-color: #63060e;
+  color: #ffa4c2;
+  border: none;
+  border-radius: 50%;
+  font-size: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;       /* ocupa toda a largura */
+  height: 100vh;      /* ocupa toda a altura */
+  background: #1a1a1d;
+  opacity: 0.95;
+  padding: 30px;
+  display: flex;
+  transition: transform 0.3s;
+  flex-direction: column;
+  gap: 20px;
+
+  /* começa fora da tela */
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+
+  z-index: 1200;  /* acima do overlay */
+}
+
+.open .side-menu {
+  transform: translateX(0); /* traz o menu para a tela */
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+  z-index: 800;
+}
+
+.open .overlay {
+  opacity: 1;
+  background: rgba(0,0,0,0.6);
+  pointer-events: auto;
+}
+
+.side-menu .menu-window {
+  width: 100%;           /* borda lateral suave */
+  height: 100%;          /* borda superior/inferior */
+  margin: auto;         /* centraliza tudo */
+  
+  background: #575252;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;     /* se tiver muito conteúdo, vira scroll interno */
+}
+
+.side-menu .menutitle {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #ffa4c2;
+  border-bottom: 2px solid #ffa4c2;
+  padding-bottom: 8px;
+}
+.image-slot {
+  width: 200px;            /* tamanho do quadrado */
+  height: 200px;
+
+  background-color: #333;  /* cor temporária pra visualizar */
+  border-radius: 12px;
+
+  background-size: cover;  /* imagem preenche perfeitamente */
+  background-position: center;
+
+  margin-bottom: 20px;     /* espaço pra separar do resto */
+}
+
+.ficha-principal {
+  width: 230px;   
+  height: 700px;
+  background-color: #1f0309; 
+  padding: 15px;  
+  border-radius: 12px; 
+}
+.card-diffs {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 6px;
+}
+.card-df, .card-dm {
+  font-size: 11px;
+  font-weight: bold;
 }
