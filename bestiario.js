@@ -48,6 +48,7 @@ function renderizarBestiario() {
           <div class="card-stt"><div>${c.stt.vigor}</div><small>V</small></div>
           <div class="card-stt"><div>${c.stt.intelecto}</div><small>I</small></div>
           <div class="card-stt"><div>${c.stt.aura}</div><small>A</small></div>
+          <div class="card-stt"><div>${c.stt.mahre}</div><small>M</small></div>
 
           <div class="card-diffs">
             <span class="card-df">DF: ${c.DF}</span>
@@ -131,6 +132,7 @@ document.getElementById('btn-add-criatura').addEventListener('click', () => {
     vigor: parseInt(document.getElementById('vig-criatura').value) || 0,
     intelecto: parseInt(document.getElementById('int-criatura').value) || 0,
     aura: parseInt(document.getElementById('aur-criatura').value) || 0,
+    mahre: parseInt(document.getElementById('mahre-criatura').value) || 0,
   };
 
   const hpMax = isNaN(hpManual) ? calcularHP(stt) : hpManual;
